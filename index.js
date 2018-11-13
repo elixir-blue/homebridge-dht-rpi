@@ -3,7 +3,7 @@ var addon = require("./build/Release/dht");
 const DHT11 = 11;
 const DHT22 = 22;
 
-// console.log("addon.dht()", addon.dht(DHT11, 4));
+console.log("addon.dht()", addon.dht(DHT11, 4));
 
 module.exports = function(homebridge) {
   Service = homebridge.hap.Service;

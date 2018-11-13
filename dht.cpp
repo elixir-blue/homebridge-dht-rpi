@@ -41,12 +41,12 @@ void Dht(const Nan::FunctionCallbackInfo<v8::Value> &info)
   float humidity = 0.0;
 
   int rc = pi_2_dht_read(arg0, arg1, &humidity, &temperature);
-  if (DHT_SUCCESS != rc)
-  {
-    printf("pi_2_dht_read returned %d!!\n", rc);
-    Nan::ThrowError("dht_read returned non-success");
-    return;
-  }
+  // if (DHT_SUCCESS != rc)
+  // {
+  //   printf("pi_2_dht_read returned %d!!\n", rc);
+  //   Nan::ThrowError("dht_read returned non-success");
+  //   return;
+  // }
 
   v8::Local<v8::Object> obj = Nan::New<v8::Object>();
   obj->Set(humidity_key, Nan::New(humidity));
