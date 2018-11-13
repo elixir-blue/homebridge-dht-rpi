@@ -57,12 +57,15 @@ class Accessory {
   }
 
   update() {
+    const value = addon.dht(this.type, this.pin);
+    this.log.debug("update", value);
+
     this.temperature
       .getCharacteristic(Characteristic.CurrentTemperature)
-      .updateValue(addon.dht(this.type, this.pin));
+      .updateValue(value.temperature);
 
     this.humidity
       .getCharacteristic(Characteristic.CurrentRelativeHumidity)
-      .updateValue(addon.dht(this.type, this.pin));
+      .updateValue(value.humidity);
   }
 }
