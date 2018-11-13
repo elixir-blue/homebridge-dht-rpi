@@ -3,7 +3,7 @@ var addon = require("./build/Release/dht");
 const DHT11 = 11;
 const DHT22 = 22;
 
-console.log("addon.dht()", addon.dht(DHT11, 4));
+console.log("addon.dht_read()", addon.dht_read(DHT11, 4));
 
 module.exports = function(homebridge) {
   Service = homebridge.hap.Service;
@@ -57,15 +57,23 @@ class Accessory {
   }
 
   update() {
-    const value = addon.dht(this.type, this.pin);
+    console.log("update addon.dht_read()", addon.dht_read(DHT11, 4));
+
+    const value = addon.dht_read(this.type, this.pin);
     this.log.debug("update", value);
 
-    this.temperature
-      .getCharacteristic(Characteristic.CurrentTemperature)
-      .updateValue(value.temperature);
+    if (undefined !== value.temperature && undefined !== value.humidity) {
+      this.log.debug("values non-null, updating");
 
-    this.humidity
-      .getCharacteristic(Characteristic.CurrentRelativeHumidity)
-      .updateValue(value.humidity);
+      this.temperature
+        .getCharacteristic(Characteristic.CurrentTemperature)
+        .updateValue(value.temperature);
+
+      this.humidity
+        .getCharacteristic(Characteristic.CurrentRelativeHumidity)
+        .updateValue(value.humidity);
+    } else {
+      this.log.debug("values null, skipping");
+    }
   }
 }

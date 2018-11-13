@@ -11,7 +11,7 @@ extern "C" {
  * @param {Number} type 11 or 22
  * @param {Number} pin GPIO pin number
  */
-void Dht(const Nan::FunctionCallbackInfo<v8::Value> &info)
+void dht_read(const Nan::FunctionCallbackInfo<v8::Value> &info)
 {
   static const v8::Local<v8::String> humidity_key = Nan::New("humidity").ToLocalChecked();
   static const v8::Local<v8::String> temperature_key = Nan::New("temperature").ToLocalChecked();
@@ -49,16 +49,20 @@ void Dht(const Nan::FunctionCallbackInfo<v8::Value> &info)
   // }
 
   v8::Local<v8::Object> obj = Nan::New<v8::Object>();
-  obj->Set(humidity_key, Nan::New(humidity));
-  obj->Set(temperature_key, Nan::New(temperature));
+
+  if (DHT_SUCCESS == rc) {
+    printf("pi_2_dht_read returned success, using data\n");
+    obj->Set(humidity_key, Nan::New(humidity));
+    obj->Set(temperature_key, Nan::New(temperature));
+  }
 
   info.GetReturnValue().Set(obj);
 }
 
-void Init(v8::Local<v8::Object> exports)
+void initialize(v8::Local<v8::Object> exports)
 {
-  exports->Set(Nan::New("dht").ToLocalChecked(),
-               Nan::New<v8::FunctionTemplate>(Dht)->GetFunction());
+  exports->Set(Nan::New("dht_read").ToLocalChecked(),
+               Nan::New<v8::FunctionTemplate>(dht_read)->GetFunction());
 }
 
-NODE_MODULE(NODE_GYP_MODULE_NAME, Init)
+NODE_MODULE(NODE_GYP_MODULE_NAME, initialize)
