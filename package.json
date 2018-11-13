@@ -1,0 +1,30 @@
+{
+  "name": "homebridge-dht-rpi",
+  "version": "0.0.1",
+  "description": "Homebridge DHT11/22 plugin for Raspberry Pi",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "homebridge",
+    "homebridge-plugin",
+    "dht11",
+    "dht22",
+    "raspberry-pi"
+  ],
+  "engines": {
+    "homebridge": ">=0.4",
+    "node": ">=6.0"
+  },
+  "author": "Nick Veys",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elixir-blue/homebridge-dht-rpi.git"
+  },
+  "license": "BSD",
+  "dependencies": {
+    "nan": "^2.11.1",
+    "node-gyp": "^3.8.0"
+  }
+}
