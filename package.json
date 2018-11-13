@@ -1,6 +1,6 @@
 {
   "name": "homebridge-dht-rpi",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Homebridge DHT11/22 plugin for Raspberry Pi",
   "main": "index.js",
   "scripts": {
