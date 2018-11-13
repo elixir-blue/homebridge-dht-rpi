@@ -24,8 +24,6 @@
   },
   "license": "BSD",
   "dependencies": {
-    "nan": "^2.11.1",
-    "node-dht-sensor": "0.0.34",
-    "node-gyp": "^3.8.0"
+    "node-dht-sensor": "^0.0.34"
   }
 }

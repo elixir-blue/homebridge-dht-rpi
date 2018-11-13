@@ -1,11 +1,7 @@
-// var addon = require("./build/Release/dht");
-
 var sensor = require('node-dht-sensor');
 
 const DHT11 = 11;
 const DHT22 = 22;
-
-// console.log("addon.dht_read()", addon.dht_read(DHT11, 4));
 
 module.exports = function(homebridge) {
   Service = homebridge.hap.Service;
@@ -17,6 +13,7 @@ module.exports = function(homebridge) {
  * The DHT accessory.
  */
 class Accessory {
+
   /**
    * Create a new accessory instance.
    *
@@ -49,7 +46,6 @@ class Accessory {
       .setCharacteristic(Characteristic.FirmwareRevision, require("./package.json").version);
 
     this.temperature = new Service.TemperatureSensor(this.name);
-
     this.humidity = new Service.HumiditySensor(this.name);
 
     this.update();
@@ -59,31 +55,19 @@ class Accessory {
   }
 
   update() {
-    // console.log("update addon.dht_read()", addon.dht_read(DHT11, 4));
-
-    // const value = addon.dht_read(this.type, this.pin);
-    // this.log.debug("update", value);
-
-    sensor.read(this.type, this.pin, (err, temperature, humidity) => {
-      if (err) {
-        this.log.warn("error!", err);
+    sensor.read(this.type, this.pin, (error, temperatureValue, humidityValue) => {
+      if (error) {
+        this.log.warn("error!", error);
       } else {
-        this.log.debug("got values", temperature, humidity);
+        this.log.debug("got values", temperatureValue, humidityValue);
         this.temperature
           .getCharacteristic(Characteristic.CurrentTemperature)
-          .updateValue(temperature);
+          .updateValue(temperatureValue);
 
         this.humidity
           .getCharacteristic(Characteristic.CurrentRelativeHumidity)
-          .updateValue(humidity);
+          .updateValue(humidityValue);
       }
     });
-
-    // if (undefined !== value.temperature && undefined !== value.humidity) {
-    //   this.log.debug("values non-null, updating");
-
-    // } else {
-    //   this.log.debug("values null, skipping");
-    // }
   }
 }
