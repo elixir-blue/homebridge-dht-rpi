@@ -30,7 +30,7 @@ Uses the [node-dht-sensor][node-dht-sensor] library to communicate w/sensors, it
 
 #### Optional Parameters
 
-* `type` type of device, either `"DHT11"` or `"DHT22"`
+* `type` type of device, either `"DHT11"` (default) or `"DHT22"`
 * `pin` GPIO pin number, default `4`
 
 [bcm2835-lib]: http://www.airspayce.com/mikem/bcm2835
